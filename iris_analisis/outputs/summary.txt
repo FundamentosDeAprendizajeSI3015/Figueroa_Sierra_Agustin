@@ -1,0 +1,5 @@
+Resultados del análisis Iris
+Modelo: SVM_RBF
+Accuracy test: 0.895
+Precision: 0.903  Recall: 0.895  F1: 0.896
+Adjusted Rand Index (clustering): 0.580
