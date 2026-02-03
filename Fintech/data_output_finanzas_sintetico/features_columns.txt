@@ -1,0 +1,53 @@
+Users_M
+NewUsers_K
+TPV_USD_B
+TakeRate_pct
+Revenue_USD_M
+ARPU_USD
+Churn_pct
+Marketing_Spend_USD_M
+CAC_USD
+CAC_Total_USD_M
+Close_USD
+Private_Valuation_USD_B
+Close_USD_ret
+Close_USD_logret
+Country_China
+Country_Netherlands
+Country_Sweden
+Country_UK
+Country_USA
+Country_USA / Ireland
+Region_Europe
+Region_Latin America
+Region_North America
+Region_North America / Europe
+Segment_Cross-border Payments
+Segment_Digital Assets
+Segment_Digital Wallet
+Segment_Neobank
+Segment_Neobank / Super App
+Segment_Payments & Wallet
+Segment_Payments Infrastructure
+Segment_Payments Network
+Segment_Super App / Wallet
+Subsegment_Exchange & Custody
+Subsegment_Merchant + P2P
+Subsegment_Pay-in-4 / Financing
+Subsegment_Payments & Ecosystem
+Subsegment_Payments & Wallet
+Subsegment_Processor / Acquirer
+Subsegment_Processor / PSP
+Subsegment_Remittances & FX
+Subsegment_Retail & Business
+Subsegment_Retail Banking
+IsPublic_True
+Ticker_COIN
+Ticker_KLAR
+Ticker_MA
+Ticker_NU
+Ticker_PYPL
+Ticker_SQ
+Ticker_V
+Ticker_WISE.L
+Ticker___MISSING__

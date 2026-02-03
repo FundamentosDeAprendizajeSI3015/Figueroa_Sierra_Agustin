@@ -1,0 +1,44 @@
+{
+  "description": "Dataset SINTÉTICO mensual (2025) con métricas de grandes fintech globales. Todos los valores cuantitativos son inventados para uso docente.",
+  "period": "2025-01 a 2025-12",
+  "entities": [
+    "Visa",
+    "Mastercard",
+    "PayPal",
+    "Stripe",
+    "Adyen",
+    "Ant Group (Alipay)",
+    "Nubank",
+    "Revolut",
+    "Klarna",
+    "Wise",
+    "Coinbase",
+    "Block (Cash App)"
+  ],
+  "columns": {
+    "Month": "Mes (YYYY-MM)",
+    "Company": "Nombre de la empresa (real)",
+    "Country": "País de sede",
+    "Region": "Región",
+    "Segment": "Categoría de negocio (pagos, neobanco, etc.)",
+    "Subsegment": "Subcategoría",
+    "IsPublic": "True si cotiza en bolsa en ese mes",
+    "Ticker": "Ticker si es pública (sintético para algunos casos)",
+    "Users_M": "Usuarios activos mensuales en millones (sintético)",
+    "NewUsers_K": "Altas nuevas en miles (sintético)",
+    "TPV_USD_B": "Volumen total de pagos (billions USD) mensual (sintético)",
+    "TakeRate_pct": "Tasa de captura promedio % sobre TPV (sintético)",
+    "Revenue_USD_M": "Ingresos estimados (millions USD) = TPV_USD_B * TakeRate_pct/100 * 1000",
+    "ARPU_USD": "Ingreso promedio por usuario mensual (sintético)",
+    "Churn_pct": "Churn mensual % (sintético)",
+    "Marketing_Spend_USD_M": "Gasto de marketing mensual (millions USD) (sintético)",
+    "CAC_USD": "Costo de adquisición por usuario (USD) (sintético)",
+    "CAC_Total_USD_M": "CAC total del mes (millions USD) = CAC * NewUsers_K / 1000",
+    "Close_USD": "Precio de cierre de la acción (USD) si es pública (sintético)",
+    "Private_Valuation_USD_B": "Valoración (billions USD) si es privada (sintético)"
+  },
+  "notes": [
+    "Empresas y segmentos basados en perfiles públicos; MÉTRICAS NUMÉRICAS INVENTADAS para fines académicos.",
+    "Klarna se marca pública a partir de 2025-09 (IPO ficticio para el dataset)."
+  ]
+}

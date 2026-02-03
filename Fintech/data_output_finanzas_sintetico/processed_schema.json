@@ -1,0 +1,54 @@
+{
+  "source_csv": "D:\\Clase-fundamentos-aprendizaje-automatico\\Clase #3\\Fintech\\fintech_top_sintetico_2025.csv",
+  "source_dict": "D:\\Clase-fundamentos-aprendizaje-automatico\\Clase #3\\Fintech\\fintech_top_sintetico_dictionary.json",
+  "date_col": "Month",
+  "id_cols": [
+    "Company"
+  ],
+  "categorical_cols_used": [
+    "Country",
+    "Region",
+    "Segment",
+    "Subsegment",
+    "IsPublic",
+    "Ticker"
+  ],
+  "numeric_cols_used": [
+    "Users_M",
+    "NewUsers_K",
+    "TPV_USD_B",
+    "TakeRate_pct",
+    "Revenue_USD_M",
+    "ARPU_USD",
+    "Churn_pct",
+    "Marketing_Spend_USD_M",
+    "CAC_USD",
+    "CAC_Total_USD_M",
+    "Close_USD",
+    "Private_Valuation_USD_B",
+    "Close_USD_ret",
+    "Close_USD_logret"
+  ],
+  "engineered_cols": [
+    "Close_USD_ret",
+    "Close_USD_logret"
+  ],
+  "split": {
+    "type": "time_split",
+    "cutoff": "2025-09-01",
+    "train_rows": 96,
+    "test_rows": 48
+  },
+  "X_train_shape": [
+    96,
+    53
+  ],
+  "X_test_shape": [
+    48,
+    53
+  ],
+  "notes": [
+    "Dataset 100% SINTÉTICO con fines académicos; no refleja métricas reales.",
+    "Evitar fuga de datos: el escalador se ajusta en TRAIN y se aplica a TEST."
+  ]
+}
