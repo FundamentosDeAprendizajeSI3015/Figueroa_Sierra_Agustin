@@ -66,8 +66,6 @@ We built `13-preprocess.py` — a complete ML preprocessing pipeline applied to 
 ### Key Results
 | Metric | Value |
 | :--- | :--- |
-| Final rows | 1,997,766 |
-| Train / Test | 1,598,212 / 399,554 |
 | Features | 20 |
 | Target classes | 86 genres |
 | Top genre | pop (33.2%) |
