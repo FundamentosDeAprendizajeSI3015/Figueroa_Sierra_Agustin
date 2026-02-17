@@ -24,7 +24,7 @@ except ValueError as e:
 print(f"Original shape: {df.shape}")
 
 # 1. Handle multiple artists
-# The user said they are separated by ';'. AND seemingly 'regions.csv' uses something else.
+# They are separated by ';'. AND seemingly 'regions.csv' uses something else.
 # But here we focus on processing genres.csv.
 print("Exploding artists...")
 # Drop rows with null artists

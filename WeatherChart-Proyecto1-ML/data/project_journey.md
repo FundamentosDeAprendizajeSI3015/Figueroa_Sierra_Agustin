@@ -2,6 +2,9 @@
 
 This document details the end-to-end process of building the dataset for predicting music genres based on environmental and socioeconomic factors.
 
+> [!IMPORTANT]
+> **Critical Update (2026-02-16):** A bug was identified where the source `latitude.csv` lacked negative signs for coordinates in the Southern and Western hemispheres. This was fixed across all datasets.
+
 ## 1. Project Goal
 Create a machine learning-ready dataset that links **Music Charts** (what people listen to) with **Contextual Data** (Temperature, Location, Economy, Education) to understand if environment influences musical preference.
 
@@ -66,6 +69,8 @@ We built `13-preprocess.py` — a complete ML preprocessing pipeline applied to 
 ### Key Results
 | Metric | Value |
 | :--- | :--- |
+| Final rows | 1,997,766 |
+| Train / Test | 1,598,212 / 399,554 |
 | Features | 20 |
 | Target classes | 86 genres |
 | Top genre | pop (33.2%) |

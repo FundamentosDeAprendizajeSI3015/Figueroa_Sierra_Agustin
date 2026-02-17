@@ -52,6 +52,74 @@ if missing_cols:
 df_filtered = df[list(cols_map.keys())].copy()
 df_filtered = df_filtered.rename(columns=cols_map)
 
+# ============================================================
+# FIX: latitude.csv stores ALL coordinates as absolute values.
+# We must apply negative signs for Southern and Western Hemisphere.
+# ============================================================
+print("\n--- Applying Hemisphere Sign Corrections ---")
+
+# Countries that should have NEGATIVE LATITUDE (Southern Hemisphere)
+SOUTH_HEMISPHERE = {
+    'Argentina', 'Australia', 'Bolivia', 'Botswana', 'Brazil', 'Burundi',
+    'Chile', 'Comoros', 'DR Congo', 'Democratic Republic of the Congo',
+    'Ecuador', 'East Timor', 'Eswatini', 'Fiji', 'Indonesia',
+    'Kenya', 'Lesotho', 'Madagascar', 'Malawi', 'Mauritius', 'Mozambique',
+    'Namibia', 'Nauru', 'New Zealand', 'Papua New Guinea', 'Paraguay',
+    'Peru', 'Rwanda', 'Samoa', 'Solomon Islands', 'South Africa',
+    'Tanzania', 'Tonga', 'Tuvalu', 'Uganda', 'Uruguay', 'Vanuatu',
+    'Zambia', 'Zimbabwe'
+}
+
+# Countries that should have NEGATIVE LONGITUDE (Western Hemisphere)
+WEST_HEMISPHERE = {
+    'Antigua and Barbuda', 'Argentina', 'Aruba', 'Bahamas', 'The Bahamas',
+    'Barbados', 'Belize', 'Bolivia', 'Brazil', 'Canada', 'Chile',
+    'Colombia', 'Costa Rica', 'Cuba', 'Curaçao', 'Dominica',
+    'Dominican Republic', 'Ecuador', 'El Salvador', 'Grenada',
+    'Guatemala', 'Guyana', 'Haiti', 'Honduras', 'Iceland', 'Ireland',
+    'Jamaica', 'Mexico', 'Nicaragua', 'Panama', 'Paraguay', 'Peru',
+    'Portugal', 'Puerto Rico', 'Saint Kitts and Nevis', 'Saint Lucia',
+    'Saint Vincent and the Grenadines', 'Spain', 'Suriname',
+    'Trinidad and Tobago', 'United Kingdom', 'United States', 'Uruguay',
+    'Venezuela'
+}
+
+# Apply sign corrections using normalized matching
+south_fixed = 0
+west_fixed = 0
+
+for idx, row in df_filtered.iterrows():
+    country = str(row['country']).strip()
+    
+    if country in SOUTH_HEMISPHERE and row['latitude'] > 0:
+        df_filtered.at[idx, 'latitude'] = -abs(row['latitude'])
+        south_fixed += 1
+    
+    if country in WEST_HEMISPHERE and row['longitude'] > 0:
+        df_filtered.at[idx, 'longitude'] = -abs(row['longitude'])
+        west_fixed += 1
+
+print(f"  Latitudes corrected to negative (South): {south_fixed}")
+print(f"  Longitudes corrected to negative (West): {west_fixed}")
+
+# Validation: spot-check known coordinates
+validation_checks = {
+    'Argentina': (-38.4, -63.6),
+    'Brazil': (-14.2, -51.9),
+    'Australia': (-25.3, 133.8),
+    'United States': (37.1, -95.7),
+    'Colombia': (4.6, -74.3),
+}
+print("\n  Spot-check (expected vs actual):")
+for country, (exp_lat, exp_lon) in validation_checks.items():
+    row = df_filtered[df_filtered['country'] == country]
+    if not row.empty:
+        actual_lat = row['latitude'].values[0]
+        actual_lon = row['longitude'].values[0]
+        lat_ok = "✓" if (actual_lat < 0) == (exp_lat < 0) else "✗"
+        lon_ok = "✓" if (actual_lon < 0) == (exp_lon < 0) else "✗"
+        print(f"    {country:<20} lat={actual_lat:>8.2f} ({lat_ok})  lon={actual_lon:>8.2f} ({lon_ok})")
+
 # Replace 0 with NaN for education/unemployment if 0 indicates missing data?
 # Let's check stats first.
 print("\n--- Data Quality Report ---")
