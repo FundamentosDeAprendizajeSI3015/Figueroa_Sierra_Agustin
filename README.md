@@ -97,6 +97,28 @@ Desarrollar un flujo completo de limpieza y transformación de datos utilizando 
 
 ---
 
+### 🚢 `Clase-5-Regresion-Titanic/`
+**Dataset:** Titanic Dataset
+
+**Objetivo**
+Implementar modelos de Regresión Lineal y Logística utilizando Pipelines de Scikit-Learn, enfocándose en la automatización del preprocesamiento y la optimización de hiperparámetros.
+
+**Actividades Realizadas**
+- Ingeniería de características y limpieza avanzada de datos.
+- Implementación de **Regresión Lineal (Ridge y Lasso)** para predicción de edad.
+- Implementación de **Regresión Logística** para clasificación de supervivencia.
+- Optimización de modelos mediante `RandomizedSearchCV` y validación cruzada.
+- **Análisis de Importancia de Características**: Visualización del impacto de cada variable en el modelo.
+- **Curva ROC y AUC**: Evaluación del rendimiento del clasificador a diferentes umbrales.
+
+**Conceptos Cubiertos**
+- Automatización mediante `Pipeline` y `ColumnTransformer`.
+- Regularización estructural (Ridge vs. Lasso).
+- Evaluación avanzada de modelos de clasificación y regresión.
+- Explicabilidad del modelo (Feature Importance).
+
+---
+
 ### 🌦️ `WeatherChart-Proyecto1-ML/`
 **Proyecto:** Análisis y Predicción de Datos Meteorológicos
 
@@ -144,4 +166,4 @@ Los modelos aprenden patrones de datos históricos y no toman decisiones autóno
 
 ---
 
-**Última actualización:** Febrero 2026
+**Última actualización:** Febrero 17, 2026
