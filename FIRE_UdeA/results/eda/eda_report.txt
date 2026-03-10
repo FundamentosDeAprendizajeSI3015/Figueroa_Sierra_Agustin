@@ -1,0 +1,416 @@
+======================================================================
+1. DATA OVERVIEW
+======================================================================
+
+Shape: 80 rows × 16 columns
+Dtypes:
+anio                          int64
+unidad                          str
+ingresos_totales            float64
+gastos_personal             float64
+liquidez                    float64
+dias_efectivo               float64
+cfo                         float64
+participacion_ley30         float64
+participacion_regalias      float64
+participacion_servicios     float64
+participacion_matriculas    float64
+hhi_fuentes                 float64
+endeudamiento               float64
+tendencia_ingresos          float64
+gp_ratio                    float64
+label                         int64
+
+Years: [np.int64(2016), np.int64(2017), np.int64(2018), np.int64(2019), np.int64(2020), np.int64(2021), np.int64(2022), np.int64(2023), np.int64(2024), np.int64(2025)] (10 unique)
+Units: ['Ciencias Económicas', 'Derecho', 'Educación', 'Facultad de Ingeniería', 'Institutos', 'Medicina', 'Nivel Central', 'Sedes y Seccionales'] (8 unique)
+
+First 5 rows:
+   anio                  unidad  ingresos_totales  gastos_personal  liquidez  dias_efectivo           cfo  participacion_ley30  participacion_regalias  participacion_servicios  participacion_matriculas  hhi_fuentes  endeudamiento  tendencia_ingresos  gp_ratio  label
+0  2016  Facultad de Ingeniería      1.849089e+11     7.820406e+10  1.805294      93.574425  4.134824e+09             0.364149                0.029874                 0.191070                  0.246057     0.259059       0.345687            0.032173  0.422933      0
+1  2017  Facultad de Ingeniería      1.663532e+11     8.990514e+10  1.718830      74.765485  4.558967e+09             0.323282                0.104119                 0.329339                  0.220162     0.272821       0.442989            0.030046  0.540447      1
+2  2018  Facultad de Ingeniería      1.629845e+11     8.181904e+10  1.323889      98.434310 -1.723374e+10             0.296912                0.054888                 0.080071                  0.109139     0.320165            NaN           -0.043021  0.502005      1
+3  2019  Facultad de Ingeniería      1.527366e+11     8.423677e+10  1.883173      70.617227  1.827772e+10             0.363690                0.066772                 0.219408                  0.275695     0.266417       0.470299           -0.024940  0.551516      0
+4  2020  Facultad de Ingeniería      1.728688e+11     9.884542e+10  1.000427      92.131085  1.329201e+10             0.417744                0.089913                 0.273470                  0.149092     0.284478       0.421142            0.024130  0.571795      1
+
+Basic stats:
+                          count          mean           std           min           25%           50%           75%           max
+anio                       80.0  2.020500e+03  2.890403e+00  2.016000e+03  2.018000e+03  2.020500e+03  2.023000e+03  2.025000e+03
+ingresos_totales           80.0  1.334052e+11  6.093596e+10  5.838237e+10  8.164123e+10  1.085958e+11  1.867022e+11  2.422573e+11
+gastos_personal            80.0  7.148201e+10  3.338854e+10  3.171738e+10  4.245699e+10  5.797531e+10  1.006484e+11  1.382488e+11
+liquidez                   78.0  1.367639e+00  2.353868e-01  7.720013e-01  1.234751e+00  1.340553e+00  1.511790e+00  1.921594e+00
+dias_efectivo              79.0  9.521197e+01  2.559532e+01  4.050935e+01  7.414818e+01  9.790817e+01  1.141645e+02  1.537759e+02
+cfo                        75.0  5.704602e+09  1.401084e+10 -3.841759e+10  4.222412e+09  6.335817e+09  1.128300e+10  4.688372e+10
+participacion_ley30        76.0  3.258455e-01  5.307507e-02  2.031916e-01  2.892652e-01  3.228896e-01  3.644239e-01  4.429085e-01
+participacion_regalias     80.0  6.213758e-02  1.988565e-02  1.915807e-02  4.890641e-02  6.215223e-02  7.509729e-02  1.153321e-01
+participacion_servicios    80.0  2.119350e-01  5.378903e-02  8.007054e-02  1.836164e-01  2.128739e-01  2.445741e-01  3.293393e-01
+participacion_matriculas   80.0  1.788324e-01  4.275235e-02  7.771782e-02  1.539670e-01  1.786380e-01  2.088419e-01  2.756946e-01
+hhi_fuentes                79.0  2.516419e-01  1.921031e-02  2.187607e-01  2.386670e-01  2.479175e-01  2.626009e-01  3.201647e-01
+endeudamiento              72.0  3.912252e-01  7.585272e-02  2.294585e-01  3.451367e-01  3.883606e-01  4.227527e-01  5.938484e-01
+tendencia_ingresos         77.0  3.044011e-02  4.341628e-02 -6.663316e-02  8.793189e-03  2.946093e-02  6.226724e-02  1.250314e-01
+gp_ratio                   80.0  5.345934e-01  4.096291e-02  4.229328e-01  5.127825e-01  5.323889e-01  5.575113e-01  6.589322e-01
+label                      80.0  4.750000e-01  5.025253e-01  0.000000e+00  0.000000e+00  0.000000e+00  1.000000e+00  1.000000e+00
+
+======================================================================
+2. TARGET VARIABLE ANALYSIS (label)
+======================================================================
+
+Overall distribution:
+  label=0 (sano):   42 (52.5%)
+  label=1 (riesgo): 38 (47.5%)
+  Prevalence (P=1): 0.475
+
+Label distribution by unit:
+                        label_0  label_1  total  prevalence
+unidad                                                     
+Ciencias Económicas           6        4     10         0.4
+Derecho                       6        4     10         0.4
+Educación                     7        3     10         0.3
+Facultad de Ingeniería        3        7     10         0.7
+Institutos                    5        5     10         0.5
+Medicina                      5        5     10         0.5
+Nivel Central                 6        4     10         0.4
+Sedes y Seccionales           4        6     10         0.6
+
+Label distribution by year:
+      label_0  label_1  prevalence
+anio                              
+2016        7        1       0.125
+2017        5        3       0.375
+2018        1        7       0.875
+2019        7        1       0.125
+2020        6        2       0.250
+2021        3        5       0.625
+2022        6        2       0.250
+2023        3        5       0.625
+2024        2        6       0.750
+2025        2        6       0.750
+
+======================================================================
+3. MISSING VALUES ANALYSIS
+======================================================================
+
+Columns with missing values:
+  endeudamiento: 8/80 (10.0%)
+  cfo: 5/80 (6.2%)
+  participacion_ley30: 4/80 (5.0%)
+  tendencia_ingresos: 3/80 (3.8%)
+  liquidez: 2/80 (2.5%)
+  dias_efectivo: 1/80 (1.2%)
+  hhi_fuentes: 1/80 (1.2%)
+
+Missing values by unit:
+                        endeudamiento  cfo  participacion_ley30  tendencia_ingresos  liquidez  dias_efectivo  hhi_fuentes
+unidad                                                                                                                   
+Ciencias Económicas                 0    1                    1                   0         1              0            0
+Derecho                             0    0                    0                   1         0              0            0
+Educación                           3    2                    1                   0         0              0            0
+Facultad de Ingeniería              1    0                    0                   0         0              0            0
+Institutos                          0    0                    0                   1         0              1            1
+Medicina                            3    0                    0                   0         0              0            0
+Nivel Central                       0    1                    1                   0         0              0            0
+Sedes y Seccionales                 1    1                    1                   1         1              0            0
+
+Missing values by year:
+      endeudamiento  cfo  participacion_ley30  tendencia_ingresos  liquidez  dias_efectivo  hhi_fuentes
+anio                                                                                                   
+2016              0    0                    0                   1         0              0            0
+2017              0    0                    0                   1         1              1            0
+2018              2    0                    2                   0         0              0            0
+2019              2    0                    1                   0         0              0            1
+2020              0    0                    0                   0         0              0            0
+2021              2    0                    1                   1         0              0            0
+2022              1    3                    0                   0         0              0            0
+2023              0    2                    0                   0         0              0            0
+2024              1    0                    0                   0         0              0            0
+2025              0    0                    0                   0         1              0            0
+
+Missingness pattern analysis:
+  endeudamiento:
+    P(label=1 | missing):     0.500
+    P(label=1 | not missing): 0.472
+    ✓ Likely MAR/MCAR (diff=0.028)
+  cfo:
+    P(label=1 | missing):     0.400
+    P(label=1 | not missing): 0.480
+    ✓ Likely MAR/MCAR (diff=0.080)
+  participacion_ley30:
+    P(label=1 | missing):     0.500
+    P(label=1 | not missing): 0.474
+    ✓ Likely MAR/MCAR (diff=0.026)
+  tendencia_ingresos:
+    P(label=1 | missing):     0.333
+    P(label=1 | not missing): 0.481
+    ✓ Likely MAR/MCAR (diff=0.147)
+  liquidez:
+    P(label=1 | missing):     0.000
+    P(label=1 | not missing): 0.487
+    ⚠ POTENTIAL MNAR — missingness correlated with label (diff=0.487)
+  dias_efectivo:
+    P(label=1 | missing):     0.000
+    P(label=1 | not missing): 0.481
+    ⚠ POTENTIAL MNAR — missingness correlated with label (diff=0.481)
+  hhi_fuentes:
+    P(label=1 | missing):     0.000
+    P(label=1 | not missing): 0.481
+    ⚠ POTENTIAL MNAR — missingness correlated with label (diff=0.481)
+
+======================================================================
+4. FEATURE DISTRIBUTIONS BY LABEL
+======================================================================
+
+Mean by label:
+label                                0             1
+ingresos_totales          1.322086e+11  1.347277e+11
+gastos_personal           6.850908e+10  7.476788e+10
+liquidez                  1.429470e+00  1.302554e+00
+dias_efectivo             1.040352e+02  8.569220e+01
+cfo                       1.135847e+10 -4.204226e+08
+participacion_ley30       3.274659e-01  3.240451e-01
+participacion_regalias    6.313615e-02  6.103389e-02
+participacion_servicios   2.199583e-01  2.030673e-01
+participacion_matriculas  1.839030e-01  1.732280e-01
+hhi_fuentes               2.474361e-01  2.561798e-01
+endeudamiento             3.673916e-01  4.178627e-01
+tendencia_ingresos        2.409875e-02  3.729563e-02
+gp_ratio                  5.179663e-01  5.529708e-01
+
+Std by label:
+label                                0             1
+ingresos_totales          6.233765e+10  6.015526e+10
+gastos_personal           3.262585e+10  3.434522e+10
+liquidez                  2.438033e-01  2.101662e-01
+dias_efectivo             2.349837e+01  2.459227e+01
+cfo                       1.029628e+10  1.502446e+10
+participacion_ley30       4.921421e-02  5.771631e-02
+participacion_regalias    1.851544e-02  2.149534e-02
+participacion_servicios   4.568322e-02  6.091874e-02
+participacion_matriculas  4.209556e-02  4.332978e-02
+hhi_fuentes               1.524121e-02  2.204742e-02
+endeudamiento             6.638213e-02  7.780198e-02
+tendencia_ingresos        4.742286e-02  3.807972e-02
+gp_ratio                  3.625300e-02  3.828356e-02
+
+Mann-Whitney U tests (label=0 vs label=1):
+  Feature                            U-stat    p-value  Significant
+  ------------------------------ ---------- ---------- ------------
+  ingresos_totales                    795.0     0.9808           No
+  gastos_personal                     727.0     0.4970           No
+  liquidez                            972.0     0.0345        ✓ Yes
+  dias_efectivo                      1117.0     0.0009        ✓ Yes
+  cfo                                1042.0     0.0003        ✓ Yes
+  participacion_ley30                 751.0     0.7510           No
+  participacion_regalias              876.0     0.4553           No
+  participacion_servicios             899.0     0.3329           No
+  participacion_matriculas            899.0     0.3329           No
+  hhi_fuentes                         599.0     0.0782           No
+  endeudamiento                       389.0     0.0038        ✓ Yes
+  tendencia_ingresos                  612.0     0.1936           No
+  gp_ratio                            434.0     0.0005        ✓ Yes
+
+======================================================================
+5. CORRELATION ANALYSIS
+======================================================================
+
+Correlation with label (Pearson):
+  ★ gp_ratio                         0.4294
+  ★ cfo                             -0.4228
+  ★ dias_efectivo                   -0.3604
+  ★ endeudamiento                    0.3345
+  ★ liquidez                        -0.2712
+  ★ hhi_fuentes                      0.2289
+    participacion_servicios         -0.1578
+    tendencia_ingresos               0.1529
+    participacion_matriculas        -0.1255
+    gastos_personal                  0.0942
+    participacion_regalias          -0.0531
+    participacion_ley30             -0.0324
+    ingresos_totales                 0.0208
+
+High inter-feature correlations (|r| > 0.7):
+  ingresos_totales ↔ gastos_personal: r=0.9844
+
+======================================================================
+6. TEMPORAL PATTERNS
+======================================================================
+
+Key feature means by year:
+      liquidez  gp_ratio  endeudamiento  tendencia_ingresos           cfo  hhi_fuentes
+anio                                                                                  
+2016  1.466491  0.491222       0.384254            0.008066  9.002591e+09     0.256134
+2017  1.490588  0.525596       0.356101            0.020345  2.769264e+09     0.245048
+2018  1.320015  0.533043       0.364372            0.032853  7.128054e+08     0.253991
+2019  1.408945  0.528258       0.368850            0.024234  4.621204e+09     0.256033
+2020  1.367199  0.532264       0.375389            0.044093  1.368398e+10     0.251480
+2021  1.313653  0.547266       0.399682            0.009986  1.380691e+10     0.266064
+2022  1.245801  0.527340       0.393161            0.039135  8.859297e+09     0.248097
+2023  1.410736  0.554443       0.349878            0.038293  3.713976e+09     0.246013
+2024  1.374987  0.554842       0.506545            0.050420  7.384234e+08     0.247746
+2025  1.282730  0.551660       0.418484            0.030362 -1.770788e+08     0.246363
+
+Temporal autocorrelation within units (lag-1):
+  liquidez                       mean autocorr = -0.282
+  gp_ratio                       mean autocorr = 0.048
+  endeudamiento                  mean autocorr = -0.065
+  tendencia_ingresos             mean autocorr = -0.011
+  cfo                            mean autocorr = 0.294
+  hhi_fuentes                    mean autocorr = 0.008
+
+Label transitions (year-to-year within units):
+
+  Transition matrix:
+  To     0   1
+From        
+0     21  19
+1     14  18
+
+  Transition rates:
+    P(stay sano | was sano):     0.525
+    P(become risk | was sano):   0.475
+    P(stay risk | was risk):     0.562
+    P(recovery | was risk):      0.438
+
+======================================================================
+7. OUTLIER ANALYSIS
+======================================================================
+
+Outliers detection (IQR method, 1.5×IQR):
+  Feature                        N outliers % outliers                          Range
+  ------------------------------ ---------- ---------- ------------------------------
+  liquidez                                1       1.3% [0.82, 1.93]
+  cfo                                    13      17.3% [-6368466346.78, 21873876816.02]
+  participacion_regalias                  1       1.2% [0.01, 0.11]
+  participacion_servicios                 2       2.5% [0.09, 0.34]
+  hhi_fuentes                             2       2.5% [0.20, 0.30]
+  endeudamiento                           4       5.6% [0.23, 0.54]
+  gp_ratio                                4       5.0% [0.45, 0.62]
+
+  CFO extreme values:
+    Bottom 5:
+ anio              unidad           cfo
+ 2018            Medicina -3.841759e+10
+ 2019            Medicina -3.455495e+10
+ 2024 Ciencias Económicas -3.301159e+10
+ 2017            Medicina -3.053493e+10
+ 2025       Nivel Central -2.960715e+10
+    Top 5:
+ anio              unidad          cfo
+ 2021 Ciencias Económicas 2.310672e+10
+ 2016       Nivel Central 2.352597e+10
+ 2020 Ciencias Económicas 2.518917e+10
+ 2020       Nivel Central 3.440145e+10
+ 2021       Nivel Central 4.688372e+10
+
+======================================================================
+8. FEATURE SCALE ANALYSIS
+======================================================================
+
+  Feature                                    Min             Max        Scale
+  ------------------------------ --------------- --------------- ------------
+  ingresos_totales                58382366064.34 242257334983.93        10^11
+  gastos_personal                 31717384437.46 138248782514.58        10^11
+  liquidez                                  0.77            1.92         10^0
+  dias_efectivo                            40.51          153.78         10^2
+  cfo                            -38417592441.73  46883716949.13        10^11
+  participacion_ley30                       0.20            0.44         10^0
+  participacion_regalias                    0.02            0.12         10^0
+  participacion_servicios                   0.08            0.33         10^0
+  participacion_matriculas                  0.08            0.28         10^0
+  hhi_fuentes                               0.22            0.32         10^0
+  endeudamiento                             0.23            0.59         10^0
+  tendencia_ingresos                       -0.07            0.13         10^0
+  gp_ratio                                  0.42            0.66         10^0
+
+  NOTE: Tree-based models are scale-invariant, but this matters for
+  linear models (LogReg, ElasticNet) which need StandardScaler.
+
+======================================================================
+9. CLASS SEPARABILITY — Key Financial Indicators
+======================================================================
+
+  Cohen's d effect size (label=0 vs label=1):
+  Feature                           Cohen d       Effect
+  ------------------------------ ---------- ------------
+  ingresos_totales                   0.0411   Negligible
+  gastos_personal                    0.1868   Negligible
+  liquidez                          -0.5576       Medium
+  dias_efectivo                     -0.7627       Medium
+  cfo                               -0.9146        Large
+  participacion_ley30               -0.0638   Negligible
+  participacion_regalias            -0.1048   Negligible
+  participacion_servicios           -0.3137        Small
+  participacion_matriculas          -0.2499        Small
+  hhi_fuentes                        0.4614        Small
+  endeudamiento                      0.6979       Medium
+  tendencia_ingresos                 0.3069        Small
+  gp_ratio                           0.9389        Large
+
+  Top discriminative features (|d| > 0.2):
+    ★ gp_ratio: d=0.9389 (Large)
+    ★ cfo: d=-0.9146 (Large)
+    ★ dias_efectivo: d=-0.7627 (Medium)
+    ★ endeudamiento: d=0.6979 (Medium)
+    ★ liquidez: d=-0.5576 (Medium)
+    ★ hhi_fuentes: d=0.4614 (Small)
+    ★ participacion_servicios: d=-0.3137 (Small)
+    ★ tendencia_ingresos: d=0.3069 (Small)
+    ★ participacion_matriculas: d=-0.2499 (Small)
+
+======================================================================
+11. 3D VISUALIZATIONS
+======================================================================
+  ✓ 09_3d_top3_features.png — 3D scatter of gp_ratio × CFO × dias_efectivo
+  ✓ 10_3d_temporal_gp_ratio.png — 3D temporal mapping (year × unit × gp_ratio)
+  ✓ 11_3d_financial_risk_space.png — 3D scatter of liquidez × endeudamiento × cfo
+  ✓ 12_3d_risk_surface.png — 3D risk probability surface (KDE-based)
+
+======================================================================
+12. UMAP DIMENSIONALITY REDUCTION
+======================================================================
+  UMAP input: 57 samples × 13 features
+  2D UMAP embedding computed.
+  3D UMAP embedding computed.
+  ✓ 13_umap_by_label.png
+  ✓ 14_umap_by_year.png
+  ✓ 15_umap_by_unit.png
+  ✓ 16_umap_3d_label.png
+  ✓ 17_umap_dashboard.png — Combined UMAP dashboard
+
+======================================================================
+13. PCA DIMENSIONALITY REDUCTION & LOADINGS
+======================================================================
+  PCA fitted: 13 components
+  ✓ 18_pca_2d.png
+  ✓ 19_pca_variance.png
+  ✓ 20_pca_loadings.png
+
+======================================================================
+10. EDA FINDINGS — IMPLICATIONS FOR IMPLEMENTATION PLAN
+======================================================================
+
+  [1] SAMPLE SIZE: 80 observations
+      After removing 2016 (for lags): ~72 observations
+      →  Confirms: simple models should be prioritized
+
+  [2] MISSING VALUES: 2.3% overall
+      →  Confirms: imputation needed, missing indicators useful
+
+  [3] CLASS BALANCE: prevalence=0.475
+      →  Classes reasonably balanced, no SMOTE needed
+
+  [4] FEATURES CORRELATED WITH LABEL (|r|>0.2): 6/13
+      →  Linear models may work well as baseline
+
+  [5] HIGH INTER-FEATURE CORRELATIONS (|r|>0.7): 1 pairs
+      →  Confirms: ElasticNet (L1) can help with multicollinearity
+         ingresos_totales ↔ gastos_personal: r=0.984
+
+  [6] SCALE RANGE: 0.12 to 242257334983.93 (ratio: 2100520288954x)
+      →  Confirms: StandardScaler essential for linear models
+
+  [7] TEMPORAL STRUCTURE:
+      Panel: 8 units × 10 years
+      →  Confirms: LOYO validation is correct approach
+
+======================================================================
+EDA COMPLETE — All outputs saved to D:\Clase-fundamentos-aprendizaje-automatico\Lecture08\results\eda
+======================================================================

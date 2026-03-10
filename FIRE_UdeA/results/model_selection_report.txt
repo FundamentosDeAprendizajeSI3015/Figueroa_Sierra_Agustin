@@ -1,0 +1,18 @@
+FIRE-UdeA v2.0 — Model Selection Report
+======================================================================
+
+Best model: 1_LogisticRegression_L2
+ROC-AUC (LOYO mean): 0.8925
+
+All models:
+                  model                                                 best_params  roc_auc_mean  roc_auc_std  roc_auc_stable_mean  roc_auc_stable_std  roc_auc_train_mean  gap_auc  brier_mean  brier_std  f1_mean   f1_std  predicts_both_pct  n_folds
+1_LogisticRegression_L2                                                  {'C': 0.1}      0.892517     0.112114             0.906667            0.093452            0.980845 0.088328    0.198885   0.089741 0.742857 0.169466              100.0        7
+  2_ElasticNet_Logistic                                              {'alpha': 0.1}      0.745578     0.238341             0.803333            0.167465            0.966623 0.221045    0.216555   0.109428 0.597619 0.309945              100.0        7
+         3_DecisionTree                     {'max_depth': 3, 'min_samples_leaf': 3}      0.594218     0.172835             0.595000            0.201976            0.943634 0.349416    0.411756   0.161416 0.510544 0.202158              100.0        7
+         4_RandomForest                     {'max_depth': 2, 'min_samples_leaf': 3}      0.828571     0.194511             0.793333            0.214113            0.990823 0.162252    0.222264   0.044903 0.731633 0.128374              100.0        7
+             5_LightGBM {'max_depth': 1, 'learning_rate': 0.1, 'n_estimators': 100}      0.688776     0.227420             0.700000            0.262255            0.984933 0.296157    0.244351   0.084130 0.510823 0.377940              100.0        7
+
+Selection criteria:
+- Primary: highest mean ROC-AUC across 7 LOYO folds
+- Penalized if train-test AUC gap > 0.15 (overfitting)
+- Complex model only preferred if AUC > simple_AUC + simple_std

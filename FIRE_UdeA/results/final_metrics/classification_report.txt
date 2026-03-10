@@ -1,0 +1,12 @@
+FIRE-UdeA v2.0 — Classification Report (LogReg L2)
+============================================================
+All LOYO out-of-fold predictions (n=56)
+
+              precision    recall  f1-score   support
+
+    Sano (0)     0.8000    0.8276    0.8136        29
+  Riesgo (1)     0.8077    0.7778    0.7925        27
+
+    accuracy                         0.8036        56
+   macro avg     0.8038    0.8027    0.8030        56
+weighted avg     0.8037    0.8036    0.8034        56

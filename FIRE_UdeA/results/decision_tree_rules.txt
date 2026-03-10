@@ -1,0 +1,25 @@
+FIRE-UdeA — Decision Tree Rules for Financial Risk Classification
+======================================================================
+
+These rules can be used as heuristic guidelines by university administrators.
+Trained on all data 2017-2024, depth=2.
+
+|--- cfo_sobre_ingresos <= 0.05
+|   |--- dias_efectivo <= 105.51
+|   |   |--- ingresos_log <= 26.03
+|   |   |   |--- class: 1
+|   |   |--- ingresos_log >  26.03
+|   |   |   |--- class: 1
+|   |--- dias_efectivo >  105.51
+|   |   |--- class: 0
+|--- cfo_sobre_ingresos >  0.05
+|   |--- participacion_servicios <= 0.18
+|   |   |--- tendencia_ingresos <= 0.07
+|   |   |   |--- class: 1
+|   |   |--- tendencia_ingresos >  0.07
+|   |   |   |--- class: 0
+|   |--- participacion_servicios >  0.18
+|   |   |--- delta_liquidez <= -0.49
+|   |   |   |--- class: 1
+|   |   |--- delta_liquidez >  -0.49
+|   |   |   |--- class: 0
