@@ -1,0 +1,4 @@
+method,ari,nmi,n_clusters,n_noise
+KMeans K=2,-0.0068,0.0033,2,0
+KMeans K=3,0.0231,0.0388,3,0
+DBSCAN,0.1333,0.2601,3,67

@@ -1,0 +1,189 @@
+======================================================================
+FIRE-UdeA — AGRUPAMIENTO (CLUSTERING) CON KMEANS Y DBSCAN
+Adaptación del notebook ejAgrupamiento_kmeans_dbscan.ipynb
+======================================================================
+======================================================================
+1. CARGA Y PREPARACIÓN DE DATOS
+======================================================================
+
+Shape: 80 filas × 16 columnas
+Años: [np.int64(2016), np.int64(2017), np.int64(2018), np.int64(2019), np.int64(2020), np.int64(2021), np.int64(2022), np.int64(2023), np.int64(2024), np.int64(2025)] (10 únicos)
+Unidades: ['Ciencias Económicas', 'Derecho', 'Educación', 'Facultad de Ingeniería', 'Institutos', 'Medicina', 'Nivel Central', 'Sedes y Seccionales'] (8 únicas)
+
+Distribución de etiqueta supervisada (label):
+  label=0 (sano):   42 (52.5%)
+  label=1 (riesgo): 38 (47.5%)
+
+Features numéricas (13): ['ingresos_totales', 'gastos_personal', 'liquidez', 'dias_efectivo', 'cfo', 'participacion_ley30', 'participacion_regalias', 'participacion_servicios', 'participacion_matriculas', 'hhi_fuentes', 'endeudamiento', 'tendencia_ingresos', 'gp_ratio']
+
+Valores faltantes en features: 24
+Matriz de datos lista: 80 muestras × 13 features
+
+======================================================================
+2. K-MEANS CON K=2 (análogo al Dataset 1 del notebook)
+======================================================================
+
+  K = 2
+  Inercia: 896.70
+  Distribución de clusters: {np.int32(0): np.int64(47), np.int32(1): np.int64(33)}
+  Silhouette Score: 0.1409
+
+======================================================================
+3. MÉTODO DEL CODO PARA DETERMINAR K ÓPTIMO
+======================================================================
+  K= 1  |  Inercia=     1040.00  |  Silhouette=N/A
+  K= 2  |  Inercia=      896.70  |  Silhouette=0.1409
+  K= 3  |  Inercia=      817.02  |  Silhouette=0.1417
+  K= 4  |  Inercia=      760.37  |  Silhouette=0.1281
+  K= 5  |  Inercia=      701.36  |  Silhouette=0.1244
+  K= 6  |  Inercia=      658.27  |  Silhouette=0.1203
+  K= 7  |  Inercia=      638.84  |  Silhouette=0.1013
+  K= 8  |  Inercia=      588.39  |  Silhouette=0.1137
+  K= 9  |  Inercia=      566.23  |  Silhouette=0.1050
+  K=10  |  Inercia=      531.45  |  Silhouette=0.1165
+
+  K óptimo (máximo Silhouette): K=3 (Silhouette=0.1417)
+  ✓ Gráfica guardada: 01_elbow_method.png
+
+======================================================================
+4. K-MEANS CON K ÓPTIMO = 3
+======================================================================
+
+  K = 3
+  Inercia: 817.02
+  Distribución de clusters: {np.int32(0): np.int64(9), np.int32(1): np.int64(44), np.int32(2): np.int64(27)}
+  Silhouette Score: 0.1417
+
+======================================================================
+5. DBSCAN (análogo a los Datasets 2 y 3 del notebook)
+======================================================================
+
+  Búsqueda de hiperparámetros completada (30 configuraciones)
+  Mejores hiperparámetros: eps=2.1979, min_samples=3
+  Clusters encontrados: 3
+  Puntos de ruido: 67 (83.8%)
+  Silhouette Score: 0.2901
+
+  Top 10 configuraciones:
+   eps  min_samples  n_clusters  n_noise  silhouette
+2.1979            3           3       67      0.2901
+2.7473            3           2       39      0.2136
+1.6484            3           0       80     -1.0000
+1.0989            3           0       80     -1.0000
+3.2968            3           1       14     -1.0000
+4.3957            3           1        0     -1.0000
+2.4385            4           1       72     -1.0000
+3.6578            4           1        6     -1.0000
+4.8770            4           1        0     -1.0000
+6.0963            4           1        0     -1.0000
+  ✓ Gráfica guardada: 02_knn_distances.png
+
+======================================================================
+6. VISUALIZACIÓN DE CLUSTERS (proyección PCA 2D)
+======================================================================
+
+  Varianza explicada por PCA: PC1=0.176, PC2=0.135
+  Total: 0.311
+  ✓ Gráfica guardada: 03_clusters_pca.png
+
+  Top 2 features por varianza: participacion_regalias, dias_efectivo
+  ✓ Gráfica guardada: 04_clusters_features.png
+
+======================================================================
+7. COMPARACIÓN CON ETIQUETAS SUPERVISADAS
+======================================================================
+
+  KMeans K=2:
+    Adjusted Rand Index (ARI):            -0.0068
+    Normalized Mutual Information (NMI):   0.0033
+    Clusters: 2, Ruido: 0
+
+    Tabla de contingencia (filas=cluster, columnas=label):
+    label     0   1
+cluster        
+0        26  21
+1        16  17
+
+  KMeans K=3:
+    Adjusted Rand Index (ARI):            0.0231
+    Normalized Mutual Information (NMI):   0.0388
+    Clusters: 3, Ruido: 0
+
+    Tabla de contingencia (filas=cluster, columnas=label):
+    label     0   1
+cluster        
+0         2   7
+1        27  17
+2        13  14
+
+  DBSCAN:
+    Adjusted Rand Index (ARI):            0.1333
+    Normalized Mutual Information (NMI):   0.2601
+    Clusters: 3, Ruido: 67
+
+    Tabla de contingencia (filas=cluster, columnas=label):
+    label    0  1
+cluster      
+0        5  2
+1        0  3
+2        1  2
+
+  ✓ Métricas guardadas: comparison_metrics.csv
+  ✓ Gráfica guardada: 05_comparison_metrics.png
+
+======================================================================
+8. PERFILES DE CLUSTERS (KMeans K=3)
+======================================================================
+
+  Media de cada feature por cluster:
+cluster                              0             1             2
+ingresos_totales          1.087594e+11  9.221867e+10  2.087392e+11
+gastos_personal           5.711481e+10  4.924953e+10  1.125018e+11
+liquidez                  1.188737e+00  1.386397e+00  1.394698e+00
+dias_efectivo             9.326670e+01  9.266070e+01  1.001179e+02
+cfo                       4.035927e+09  5.100249e+09  7.362590e+09
+participacion_ley30       3.360893e-01  3.163523e-01  3.374635e-01
+participacion_regalias    5.309509e-02  6.440296e-02  6.146000e-02
+participacion_servicios   1.290366e-01  2.266273e-01  2.156248e-01
+participacion_matriculas  1.416916e-01  1.800652e-01  1.892036e-01
+hhi_fuentes               2.859584e-01  2.435190e-01  2.533025e-01
+endeudamiento             3.966444e-01  3.914529e-01  3.881990e-01
+tendencia_ingresos       -8.901747e-06  4.323580e-02  1.962875e-02
+gp_ratio                  5.359897e-01  5.310433e-01  5.399134e-01
+  ✓ Perfiles guardados: cluster_profiles.csv
+  ✓ Gráfica guardada: 06_cluster_profiles.png
+
+  Composición de clusters por unidad:
+unidad   Ciencias Económicas  Derecho  Educación  Facultad de Ingeniería  Institutos  Medicina  Nivel Central  Sedes y Seccionales
+cluster                                                                                                                           
+0                          2        2          0                       1           1         1              0                    2
+1                          8        8         10                       1           9         0              0                    8
+2                          0        0          0                       8           0         9             10                    0
+
+  Composición de clusters por label supervisada:
+label     0   1
+cluster        
+0         2   7
+1        27  17
+2        13  14
+
+======================================================================
+9. RESUMEN Y CONCLUSIONES
+======================================================================
+
+  El análisis de agrupamiento aplicó dos algoritmos sobre el dataset
+  financiero FIRE-UdeA:
+
+  ■ KMeans: algoritmo basado en centroides, probado con K=2 (análogo
+    al ejercicio del notebook) y con K óptimo = 3 determinado
+    por el método del codo y Silhouette Score.
+
+  ■ DBSCAN: algoritmo basado en densidad con búsqueda automática de
+    hiperparámetros (eps y min_samples), capaz de detectar puntos de
+    ruido (outliers financieros).
+
+  Se compararon los agrupamientos no supervisados contra la etiqueta
+  supervisada (label: sano/riesgo) usando ARI y NMI para evaluar la
+  concordancia.
+
+  Todos los resultados se guardaron en: D:\Clase-fundamentos-aprendizaje-automatico\Lecture08\results\clustering

@@ -1,0 +1,14 @@
+feature,U_stat,p_value,significant
+ingresos_totales,795.0,0.9807837009425548,False
+gastos_personal,727.0,0.4969882500427152,False
+liquidez,972.0,0.0344900490840187,True
+dias_efectivo,1117.0,0.0009276962588513076,True
+cfo,1042.0,0.00031783644332964757,True
+participacion_ley30,751.0,0.7510194243285941,False
+participacion_regalias,876.0,0.45525793498247613,False
+participacion_servicios,899.0,0.3329081456485179,False
+participacion_matriculas,899.0,0.3329081456485179,False
+hhi_fuentes,599.0,0.07819242835385441,False
+endeudamiento,389.0,0.0038128299147840764,True
+tendencia_ingresos,612.0,0.1936222100435233,False
+gp_ratio,434.0,0.0004615009636954778,True
