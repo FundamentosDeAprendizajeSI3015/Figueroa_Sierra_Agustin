@@ -1,0 +1,57 @@
+anio,unidad,y_true,y_prob,y_pred
+2019,Ciencias Económicas,0,0.9999999,1
+2019,Derecho,0,0.9999999,1
+2019,Educación,0,0.25,0
+2019,Facultad de Ingeniería,0,0.9999999,1
+2019,Institutos,0,1e-07,0
+2019,Medicina,1,0.9999999,1
+2019,Nivel Central,0,0.9999999,1
+2019,Sedes y Seccionales,0,0.9999999,1
+2020,Ciencias Económicas,0,1e-07,0
+2020,Derecho,0,0.25,0
+2020,Educación,0,0.9999999,1
+2020,Facultad de Ingeniería,1,0.25,0
+2020,Institutos,0,0.6666666666666666,1
+2020,Medicina,0,0.9999999,1
+2020,Nivel Central,0,0.3333333333333333,0
+2020,Sedes y Seccionales,1,0.9999999,1
+2021,Ciencias Económicas,0,1e-07,0
+2021,Derecho,1,1e-07,0
+2021,Educación,0,0.9999999,1
+2021,Facultad de Ingeniería,1,0.9999999,1
+2021,Institutos,1,0.9999999,1
+2021,Medicina,1,0.9999999,1
+2021,Nivel Central,0,1e-07,0
+2021,Sedes y Seccionales,1,1e-07,0
+2022,Ciencias Económicas,1,0.9999999,1
+2022,Derecho,0,0.09090909090909091,0
+2022,Educación,0,0.09090909090909091,0
+2022,Facultad de Ingeniería,1,0.6666666666666666,1
+2022,Institutos,0,0.8,1
+2022,Medicina,0,0.8,1
+2022,Nivel Central,0,0.09090909090909091,0
+2022,Sedes y Seccionales,0,0.9999999,1
+2023,Ciencias Económicas,1,0.5714285714285714,1
+2023,Derecho,0,0.08,0
+2023,Educación,0,0.08,0
+2023,Facultad de Ingeniería,1,0.9999999,1
+2023,Institutos,1,0.5714285714285714,1
+2023,Medicina,0,0.9999999,1
+2023,Nivel Central,1,0.08,0
+2023,Sedes y Seccionales,1,0.5714285714285714,1
+2024,Ciencias Económicas,1,0.125,0
+2024,Derecho,1,0.8333333333333334,1
+2024,Educación,0,0.9999999,1
+2024,Facultad de Ingeniería,1,0.125,0
+2024,Institutos,1,1e-07,0
+2024,Medicina,0,0.125,0
+2024,Nivel Central,1,0.125,0
+2024,Sedes y Seccionales,1,1e-07,0
+2025,Ciencias Económicas,0,0.4,0
+2025,Derecho,1,0.4,0
+2025,Educación,1,0.9999999,1
+2025,Facultad de Ingeniería,0,0.13333333333333333,0
+2025,Institutos,1,0.9999999,1
+2025,Medicina,1,0.13333333333333333,0
+2025,Nivel Central,1,0.4,0
+2025,Sedes y Seccionales,1,0.9999999,1
