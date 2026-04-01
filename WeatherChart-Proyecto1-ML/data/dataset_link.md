@@ -9,6 +9,3 @@ Due to the large size (6.2 GB), the full training dataset cannot be hosted direc
 1. Download the file from the link above.
 2. Place it in the `data/` directory of this project.
 3. Ensure the filename is exactly `train_dataset.csv`.
-
-### Note
-This dataset only works for the last two scripts of the pipeline (12-eda.py and 13-preprocess.py)

@@ -33,6 +33,12 @@ The project follows a modular 13-step automated pipeline:
 12. **[12-eda.py](scripts/12-eda.py)**: Generates high-quality statistical visualizations.
 13. **[13-preprocess.py](scripts/13-preprocess.py)**: Feature scaling (StandardScaler), Encoding, and Training/Test splits.
 
+### Phase 4: Modeling & Relabeling
+14. **[14-train_model.py](scripts/14-train_model.py)**: Train base XGBoost Model. 
+15. **[15-analyze_results.py](scripts/15-analyze_results.py)**: Generate professional data insights over the trained XGBoost.
+16. **[16-unsupervised_clustering.py](scripts/16-unsupervised_clustering.py)**: Run unsupervised clustering metrics and Relabel dataset with majority cluster votes.
+17. **[17-supervised_comparison.py](scripts/17-supervised_comparison.py)**: Compare base and relabeled datasets among LogisticRegression, DecisionTrees, and RidgeClassifiers.
+
 ---
 
 ## 🖼️ Visual Gallery (EDA)

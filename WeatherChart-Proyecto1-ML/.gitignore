@@ -1,5 +1,7 @@
 # Data Files
 data/
+!data/*.txt
+!data/*.md
 *.csv
 *.parquet
 *.json

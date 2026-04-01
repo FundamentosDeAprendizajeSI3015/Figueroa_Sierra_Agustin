@@ -25,7 +25,7 @@ import ast
 import os
 import pickle
 import warnings
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GroupShuffleSplit
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 warnings.filterwarnings('ignore')
@@ -190,30 +190,59 @@ def main():
     log(f"  Genre mapping (first 10): {dict(zip(le_target.classes_[:10], range(10)))}")
     
     # ----------------------------------------------------------
-    # STEP 5: Train/Test Split (BEFORE scaling to prevent leakage)
+    # STEP 5: Train/Test Split — GROUP-BASED (prevent data leakage)
     # ----------------------------------------------------------
-    log("\n[STEP 5] Stratified Train/Test Split...")
+    log("\n[STEP 5] Group-based Train/Test Split (prevents data leakage)...")
+    log("  The same song appears in many countries with identical audio features.")
+    log("  A random split leaks the same song into train and test.")
+    log("  Fix: group by unique audio fingerprint so all copies of a song")
+    log("  stay in the SAME set.")
     
     # Separate features and target
     X = df.drop(columns=['primary_genre'])
     y = df['primary_genre']
     
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y,
-        test_size=TEST_SIZE,
-        random_state=RANDOM_STATE,
-        stratify=y
-    )
+    # Create a unique song identity from audio features only
+    # (these are the features that repeat across countries for the same song)
+    audio_cols = [
+        'danceability', 'energy', 'key', 'loudness', 'speechiness',
+        'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
+    ]
+    audio_cols_present = [c for c in audio_cols if c in X.columns]
+    song_group = pd.util.hash_pandas_object(X[audio_cols_present], index=False)
     
-    log(f"  X_train: {X_train.shape}")
+    n_unique_songs = song_group.nunique()
+    log(f"  Unique songs (audio fingerprints): {n_unique_songs:,}")
+    log(f"  Total rows: {len(X):,}")
+    log(f"  Avg copies per song: {len(X)/n_unique_songs:.1f}")
+    
+    # GroupShuffleSplit ensures all rows with the same song_group stay together
+    gss = GroupShuffleSplit(n_splits=1, test_size=TEST_SIZE, random_state=RANDOM_STATE)
+    train_idx, test_idx = next(gss.split(X, y, groups=song_group))
+    
+    X_train = X.iloc[train_idx]
+    X_test = X.iloc[test_idx]
+    y_train = y.iloc[train_idx]
+    y_test = y.iloc[test_idx]
+    
+    log(f"\n  X_train: {X_train.shape}")
     log(f"  X_test:  {X_test.shape}")
     log(f"  y_train: {y_train.shape} (classes: {y_train.nunique()})")
     log(f"  y_test:  {y_test.shape} (classes: {y_test.nunique()})")
     
-    # Verify stratification
+    # VERIFY no leakage
+    train_hashes = set(pd.util.hash_pandas_object(X_train[audio_cols_present], index=False).values)
+    test_hashes = set(pd.util.hash_pandas_object(X_test[audio_cols_present], index=False).values)
+    overlap = len(train_hashes & test_hashes)
+    log(f"\n  === LEAKAGE VERIFICATION ===")
+    log(f"  Unique songs in train: {len(train_hashes):,}")
+    log(f"  Unique songs in test:  {len(test_hashes):,}")
+    log(f"  Songs in BOTH sets:    {overlap} {'✓ ZERO LEAKAGE' if overlap == 0 else '✗ LEAKAGE DETECTED!'}")
+    
+    # Class distribution check
     train_dist = y_train.value_counts(normalize=True).head(5)
     test_dist = y_test.value_counts(normalize=True).head(5)
-    log(f"\n  Stratification check (top 5 classes):")
+    log(f"\n  Class distribution check (top 5):")
     log(f"  {'Class':<8} {'Train %':>10} {'Test %':>10}")
     for cls in train_dist.index:
         t_pct = train_dist.get(cls, 0) * 100
