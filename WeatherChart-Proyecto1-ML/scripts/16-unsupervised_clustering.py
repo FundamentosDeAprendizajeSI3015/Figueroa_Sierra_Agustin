@@ -344,6 +344,16 @@ def main():
     plot_3d_clusters(pca_3d, agg_labels, f'Agglomerative [PCA 3D]', os.path.join(PLOTS_DIR, 'clustering_agglomerative_pca3d.png'))
     plot_2d_clusters(umap_2d, agg_labels, f'Agglomerative [UMAP]', os.path.join(PLOTS_DIR, 'clustering_agglomerative_umap.png'), 'UMAP1', 'UMAP2')
 
+    log(f"\n[STEP 4f] Gaussian Mixture Model (k={n_classes})...")
+    from sklearn.mixture import GaussianMixture
+    t0 = time.time()
+    gmm = GaussianMixture(n_components=n_classes, random_state=RANDOM_STATE, covariance_type='diag')
+    gmm_labels = gmm.fit_predict(X_sample)
+    results['GMM'] = {'labels': gmm_labels, 'time': time.time() - t0, 'X': X_sample, 'y': y_sample}
+    plot_2d_clusters(pca_2d, gmm_labels, f'GMM [PCA]', os.path.join(PLOTS_DIR, 'clustering_gmm_pca2d.png'), 'PC1', 'PC2')
+    plot_3d_clusters(pca_3d, gmm_labels, f'GMM [PCA 3D]', os.path.join(PLOTS_DIR, 'clustering_gmm_pca3d.png'))
+    plot_2d_clusters(umap_2d, gmm_labels, f'GMM [UMAP]', os.path.join(PLOTS_DIR, 'clustering_gmm_umap.png'), 'UMAP1', 'UMAP2')
+
     log("\n[STEP 5] Computing metrics...")
     metrics_table = []
     for name, res in results.items():
@@ -358,6 +368,12 @@ def main():
     mbkm = MiniBatchKMeans(n_clusters=n_classes, random_state=RANDOM_STATE, batch_size=2048, n_init=3, max_iter=300)
     full_cluster_labels = mbkm.fit_predict(X_full)
     new_labels, n_changed = relabel_by_majority(full_cluster_labels, y_train_full)
+    
+    new_labels_sample = new_labels[idx_main]
+    plot_3d_clusters(pca_3d, new_labels_sample, 'PCA 3D — Re-labeled (Cleaned) Labels', os.path.join(PLOTS_DIR, 'clustering_pca3d_relabeled.png'))
+    plot_2d_clusters(umap_2d, new_labels_sample, 'UMAP 2D — Re-labeled (Cleaned) Labels', os.path.join(PLOTS_DIR, 'clustering_umap_relabeled.png'), 'UMAP1', 'UMAP2')
+    plot_2d_clusters(pca_2d, new_labels_sample, 'PCA 2D — Re-labeled (Cleaned) Labels', os.path.join(PLOTS_DIR, 'clustering_pca2d_relabeled.png'), 'PC1', 'PC2')
+
     
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
     axes[0].pie([len(y_train_full) - n_changed, n_changed], labels=['Unchanged', 'Re-labeled'], autopct='%1.1f%%', colors=['#2ecc71', '#e74c3c'])
